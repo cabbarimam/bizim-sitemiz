@@ -265,6 +265,62 @@
     text-shadow: 0 0 14px rgba(212,175,55,.55);
 }
 
+
+.sevgi-karti {
+    position: relative;
+    overflow: hidden;
+}
+
+.sevgi-buton {
+    font-size: 18px;
+    box-shadow: 0 0 18px rgba(255,120,183,.45);
+}
+
+.sevgi-mesaji {
+    display: none;
+    margin-top: 20px;
+    color: #ffd9eb;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-shadow: 0 0 12px rgba(255,120,183,.55);
+}
+
+.sevgi-mesaji.goster {
+    display: block;
+    animation: sevgiBelir 0.8s ease;
+}
+
+.patlayan-kalp {
+    position: fixed;
+    z-index: 9998;
+    pointer-events: none;
+    font-size: 28px;
+    animation: kalpPatla 1.8s ease-out forwards;
+}
+
+@keyframes sevgiBelir {
+    from {
+        opacity: 0;
+        transform: scale(.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes kalpPatla {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(.7) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.6) rotate(360deg);
+    }
+}
+
 </style>
 </head>
 
@@ -345,6 +401,20 @@ Baran ❤️
 
         </p>
     </div>
+
+<section class="kart sevgi-karti">
+    <h2>Sana Bir Şey Söylemek İstiyorum ❤️</h2>
+    <p>Bu butona her dokunduğunda kalbimdeki yerini hatırla.</p>
+
+    <button class="mektup-buton sevgi-buton" onclick="seniSeviyorumEfekti()">
+        ❤️ Seni Seviyorum
+    </button>
+
+    <div id="sevgiMesaji" class="sevgi-mesaji">
+        Kerime, seni her geçen gün daha çok seviyorum. ❤️
+    </div>
+</section>
+
 </section>
             <p>
                 Birlikte yaşadığımız her an, hayatımın en güzel hatırası.
@@ -484,6 +554,37 @@ function muzikDegistir() {
         buton.textContent = "🎵 Müziği Aç";
     }
 }
+
+function seniSeviyorumEfekti() {
+    const mesaj = document.getElementById("sevgiMesaji");
+    mesaj.classList.add("goster");
+
+    setTimeout(() => {
+        mesaj.classList.remove("goster");
+    }, 5000);
+
+    const merkezX = window.innerWidth / 2;
+    const merkezY = window.innerHeight / 2;
+
+    for (let i = 0; i < 32; i++) {
+        const kalp = document.createElement("div");
+        kalp.className = "patlayan-kalp";
+        kalp.textContent = Math.random() > 0.35 ? "❤️" : "💖";
+        kalp.style.left = merkezX + "px";
+        kalp.style.top = merkezY + "px";
+
+        const aci = (Math.PI * 2 * i) / 32;
+        const mesafe = 120 + Math.random() * 220;
+
+        kalp.style.setProperty("--x", Math.cos(aci) * mesafe + "px");
+        kalp.style.setProperty("--y", Math.sin(aci) * mesafe + "px");
+
+        document.body.appendChild(kalp);
+
+        setTimeout(() => kalp.remove(), 1900);
+    }
+}
+
 </script>
 <button id="muzikButon" onclick="muzikDegistir()">
     🎵 Müziği Aç
