@@ -1,203 +1,33 @@
+const photos = window.PHOTOS || [];
+const locations = window.MEMORY_LOCATIONS || [];
 
-const opening = document.getElementById("opening");
-const music = document.getElementById("music");
-const musicButton = document.getElementById("musicButton");
+window.addEventListener('load', () => setTimeout(() => document.getElementById('intro')?.classList.add('hide'), 1450));
+const topbar=document.querySelector('.topbar'); window.addEventListener('scroll',()=>topbar.classList.toggle('scrolled',scrollY>35),{passive:true});
+const menuBtn=document.querySelector('.menu-btn'),nav=document.querySelector('.nav');
+menuBtn.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open))});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 
-document.getElementById("enterButton").addEventListener("click", async () => {
-  opening.classList.add("hidden");
-  try {
-    await music.play();
-    musicButton.textContent = "⏸ Müziği Kapat";
-  } catch (_) {}
-});
-
-musicButton.addEventListener("click", async () => {
-  if (music.paused) {
-    try {
-      await music.play();
-      musicButton.textContent = "⏸ Müziği Kapat";
-    } catch (_) {}
-  } else {
-    music.pause();
-    musicButton.textContent = "🎵 Müziği Aç";
-  }
-});
-
-const weddingDate = new Date("2027-04-24T18:00:00+03:00");
-const firstMeeting = new Date("2024-05-12T00:00:00+03:00");
-
-function updateCounters() {
-  const now = new Date();
-  let diff = weddingDate - now;
-  if (diff <= 0) {
-    document.getElementById("countdown").innerHTML = "<h3>Bugün bizim en güzel günümüz! 💍❤️</h3>";
-  } else {
-    const days = Math.floor(diff / 86400000);
-    diff %= 86400000;
-    const hours = Math.floor(diff / 3600000);
-    diff %= 3600000;
-    const minutes = Math.floor(diff / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-  }
-  const togetherDays = Math.max(0, Math.floor((now - firstMeeting) / 86400000));
-  document.getElementById("together").textContent = `Yollarımız kesişeli ${togetherDays} gün oldu. ❤️`;
+function weddingDiff(){return Math.max(0,new Date('2027-04-24T18:00:00+03:00')-new Date())}
+function updateTimers(){
+  let diff=weddingDiff(); const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+  document.getElementById('days').textContent=d;document.getElementById('hours').textContent=h;document.getElementById('minutes').textContent=m;document.getElementById('seconds').textContent=s;
+  document.getElementById('hero-countdown').innerHTML=`<div><b>${d}</b><span>GÜN</span></div><div><b>${h}</b><span>SAAT</span></div><div><b>${m}</b><span>DAKİKA</span></div><div><b>${s}</b><span>SANİYE</span></div>`;
+  let t=Math.max(0,Date.now()-new Date('2024-05-12T00:00:00+03:00').getTime()); const td=Math.floor(t/86400000),th=Math.floor(t%86400000/3600000),tm=Math.floor(t%3600000/60000),ts=Math.floor(t%60000/1000);
+  document.getElementById('together').innerHTML=`<b>${td}</b> gün, <b>${th}</b> saat, <b>${tm}</b> dakika, <b>${ts}</b> saniyedir birlikteyiz.`;
 }
-updateCounters();
-setInterval(updateCounters, 1000);
+updateTimers();setInterval(updateTimers,1000);
 
-document.getElementById("letterButton").addEventListener("click", () => {
-  const letter = document.getElementById("letter");
-  letter.classList.toggle("open");
-  document.getElementById("letterButton").textContent =
-    letter.classList.contains("open") ? "Mektubu Kapat" : "Mektubu Aç";
-});
+document.getElementById('photo-total').textContent=photos.length;
+let shown=0,current=0;const chunk=24,grid=document.getElementById('gallery-grid'),more=document.getElementById('load-more');
+function renderMore(){photos.slice(shown,shown+chunk).forEach((src,i)=>{const index=shown+i,btn=document.createElement('button'),img=document.createElement('img');btn.className='gallery-item';btn.type='button';img.src=src;img.loading='lazy';img.alt=`Baran ve Kerime anısı ${index+1}`;img.onerror=()=>btn.remove();btn.appendChild(img);btn.addEventListener('click',()=>openLightbox(index));grid.appendChild(btn)});shown=Math.min(shown+chunk,photos.length);if(shown>=photos.length)more.style.display='none'}
+more.addEventListener('click',renderMore);renderMore();
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img'),count=document.getElementById('photo-count');
+function showPhoto(){lbImg.src=photos[current];count.textContent=`${current+1} / ${photos.length}`}
+function openLightbox(i){current=i;showPhoto();lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function closeLightbox(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+document.getElementById('close-lightbox').addEventListener('click',closeLightbox);document.getElementById('prev-photo').addEventListener('click',()=>{current=(current-1+photos.length)%photos.length;showPhoto()});document.getElementById('next-photo').addEventListener('click',()=>{current=(current+1)%photos.length;showPhoto()});lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox()});document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowRight'){current=(current+1)%photos.length;showPhoto()}if(e.key==='ArrowLeft'){current=(current-1+photos.length)%photos.length;showPhoto()}});
 
-document.getElementById("loveButton").addEventListener("click", (event) => {
-  document.getElementById("loveMessage").classList.add("show");
-  const rect = event.currentTarget.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-  for (let i = 0; i < 42; i++) {
-    const heart = document.createElement("span");
-    heart.className = "burst-heart";
-    heart.textContent = Math.random() > .35 ? "❤️" : "💖";
-    heart.style.left = `${cx}px`;
-    heart.style.top = `${cy}px`;
-    const angle = Math.PI * 2 * i / 42;
-    const distance = 100 + Math.random() * 260;
-    heart.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
-    heart.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 1800);
-  }
-});
+const music=document.getElementById('music'),musicBtn=document.getElementById('music-btn');musicBtn.addEventListener('click',async()=>{if(music.paused){try{await music.play();musicBtn.classList.add('playing');musicBtn.textContent='❚❚';musicBtn.title='Müziği durdur'}catch{alert('Müziği başlatmak için butona tekrar dokun.')}}else{music.pause();musicBtn.classList.remove('playing');musicBtn.textContent='♫';musicBtn.title='Müziği aç'}});
 
-for (let i = 0; i < 95; i++) {
-  const star = document.createElement("i");
-  star.className = "star";
-  star.style.left = `${Math.random() * 100}vw`;
-  star.style.top = `${Math.random() * 100}vh`;
-  star.style.animationDelay = `${Math.random() * 2}s`;
-  star.style.opacity = .25 + Math.random() * .75;
-  document.getElementById("stars").appendChild(star);
-}
-
-setInterval(() => {
-  const petal = document.createElement("span");
-  petal.className = "petal";
-  petal.textContent = Math.random() > .3 ? "🌹" : "🌸";
-  petal.style.left = `${Math.random() * 100}vw`;
-  petal.style.animationDuration = `${7 + Math.random() * 6}s`;
-  petal.style.setProperty("--drift", `${-100 + Math.random() * 200}px`);
-  document.getElementById("petals").appendChild(petal);
-  setTimeout(() => petal.remove(), 14000);
-}, 1200);
-
-const photos = [
-  "078a369f-ba70-423e-85d2-a3811245a9c2.JPEG",
-  "205CB7B8-91D8-498B-B180-737CF2FDBF98.JPEG",
-  "2282b4ff-9d69-4fff-8b86-77ca34480a21.JPEG",
-  "60e5f0a4-4eac-4e5c-857f-c5850aaadbbf.JPEG",
-  "6cecd463-8915-474d-8ec1-3f9539dddbcc.JPEG",
-  "8F0B5BBA-B770-4F21-9689-C9C2A0E39066.JPEG",
-  "927F1C53-930E-40DB-82F4-4A14D97E69D2.JPEG",
-  "E674A355-186F-4CE9-B410-9C0DEC385396.JPEG",
-  "IMG_0052.JPEG",
-  "IMG_0078.JPEG",
-  "IMG_0087.JPEG",
-  "IMG_0104.JPEG",
-  "IMG_0150.JPEG",
-  "IMG_0181.JPEG",
-  "IMG_0269.JPEG",
-  "IMG_0321.JPEG",
-  "IMG_0344.JPEG",
-  "IMG_0511.JPEG",
-  "IMG_0734.JPEG",
-  "IMG_0746.JPEG",
-  "IMG_0853.JPEG",
-  "IMG_0888.JPEG",
-  "IMG_1083.JPEG",
-  "IMG_1253.JPEG",
-  "IMG_1400.JPEG",
-  "IMG_1425.JPEG",
-  "IMG_1426.JPEG",
-  "IMG_1440.JPEG",
-  "IMG_1480.JPEG",
-  "IMG_1530.JPEG",
-  "IMG_1533.JPEG",
-  "IMG_1557.JPEG",
-  "IMG_1563.JPEG",
-  "IMG_1590.JPEG",
-  "IMG_1877.JPEG",
-  "IMG_1891.JPEG",
-  "IMG_1997.JPEG",
-  "IMG_2121.JPEG",
-  "IMG_2187.JPEG",
-  "IMG_2221.JPEG",
-  "IMG_2256.JPEG",
-  "IMG_2371.JPEG",
-  "IMG_2376.JPEG",
-  "IMG_2381.JPEG",
-  "IMG_2456.JPEG",
-  "IMG_2482.JPEG",
-  "IMG_2608.JPEG",
-  "IMG_2668.JPEG",
-  "IMG_2836.JPEG",
-  "IMG_2862.JPEG",
-  "IMG_2910.JPEG",
-  "IMG_3076.JPEG",
-  "IMG_3096.JPEG",
-  "IMG_3100.JPEG",
-  "IMG_3210.JPEG",
-  "IMG_3563.JPEG",
-  "IMG_4870.JPG",
-  "IMG_4871.JPG",
-  "IMG_4879.JPG",
-  "IMG_4898.JPEG",
-  "IMG_5759.JPG",
-  "IMG_6344.JPEG",
-  "IMG_6367.JPEG",
-  "IMG_7063.JPEG",
-  "IMG_7216.JPEG",
-  "IMG_9345.JPG",
-  "IMG_9451.JPEG",
-  "IMG_9463.JPEG",
-  "IMG_9541.JPEG",
-  "IMG_9883.JPEG",
-  "IMG_9895.JPEG",
-  "a096a3fa-07fb-4bd2-8150-40685a427c65.JPEG"
-];
-
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-let currentPhoto = 0;
-
-function showPhoto(index) {
-  currentPhoto = (index + photos.length) % photos.length;
-  lightboxImage.src = photos[currentPhoto];
-}
-
-document.querySelectorAll(".gallery-item").forEach((item) => {
-  item.addEventListener("click", () => {
-    showPhoto(Number(item.dataset.index));
-    lightbox.showModal();
-  });
-});
-
-document.getElementById("closeLightbox").addEventListener("click", () => lightbox.close());
-document.getElementById("prevPhoto").addEventListener("click", () => showPhoto(currentPhoto - 1));
-document.getElementById("nextPhoto").addEventListener("click", () => showPhoto(currentPhoto + 1));
-
-lightbox.addEventListener("click", (event) => {
-  if (event.target === lightbox) lightbox.close();
-});
-
-document.addEventListener("keydown", (event) => {
-  if (!lightbox.open) return;
-  if (event.key === "ArrowLeft") showPhoto(currentPhoto - 1);
-  if (event.key === "ArrowRight") showPhoto(currentPhoto + 1);
-});
+if(window.L&&locations.length){const mapEl=document.getElementById('map');mapEl.innerHTML='';const map=L.map('map',{scrollWheelZoom:false}).setView([locations[0].lat,locations[0].lng],13);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);const icon=L.divIcon({html:'<div class="heart-marker">♥</div>',className:'',iconSize:[32,32],iconAnchor:[16,28]});const bounds=[],list=document.getElementById('place-list');locations.forEach(p=>{const marker=L.marker([p.lat,p.lng],{icon}).addTo(map).bindPopup(`<b>${p.title}</b><br>${p.date}<br>${p.text}`);bounds.push([p.lat,p.lng]);const card=document.createElement('article');card.className='place-card';card.innerHTML=`<small>${p.date}</small><h3>${p.title}</h3><p>${p.text}</p>`;card.addEventListener('click',()=>{map.setView([p.lat,p.lng],15);marker.openPopup()});list.appendChild(card)});if(bounds.length>1)map.fitBounds(bounds,{padding:[45,45]})}else{document.getElementById('map').innerHTML='<div class="map-loading">Harita bağlantısı kurulamadı.</div>'}
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));

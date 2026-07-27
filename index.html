@@ -2,182 +2,83 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#09050a">
-  <meta name="description" content="Baran ve Kerime'nin hikâyesi">
-  <title>Baran ❤️ Kerime</title>
-  <link rel="stylesheet" href="style.css?v=4">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#221a17">
+  <meta name="description" content="Baran ve Kerime'nin hikâyesi, anıları ve düğün geri sayımı">
+  <title>Baran & Kerime | Bizim Hikâyemiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="stars" aria-hidden="true"></div>
-  <div id="petals" aria-hidden="true"></div>
+  <div id="intro" class="intro" aria-hidden="true">
+    <div class="intro-inner"><span>B</span><i>♥</i><span>K</span><p>Her güzel hikâye bir merhaba ile başlar…</p></div>
+  </div>
 
-  <section class="opening" id="opening">
-    <div class="opening-card">
-      <span class="eyebrow">Bir aşk hikâyesi</span>
-      <h1>Baran <span>❤️</span> Kerime</h1>
-      <p>12 Mayıs 2024’te başlayan, sonsuzluğa uzanan hikâyemiz.</p>
-      <button id="enterButton" class="primary">Hikâyemize Gir</button>
-    </div>
-  </section>
-
-  <header class="hero" id="top">
-    <nav class="nav">
-      <a class="brand" href="#top">B <span>❤</span> K</a>
-      <div>
-        <a href="#hikaye">Hikâyemiz</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#mektup">Mektup</a>
-      </div>
+  <header class="topbar">
+    <a class="brand" href="#home">B <span>♥</span> K</a>
+    <button class="menu-btn" type="button" aria-label="Menüyü aç" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#story">Hikâyemiz</a><a href="#gallery">Galeri</a><a href="#map-section">Harita</a><a href="#letter">Mektup</a><a href="#countdown">Düğün</a>
     </nav>
-    <div class="hero-content">
-      <span class="eyebrow">Baran & Kerime</span>
-      <h1>Bir ömür aynı gökyüzünün altında.</h1>
-      <p>Her anımız bir hatıra, her hayalimiz ortak bir gelecek.</p>
-      <a class="primary link-button" href="#sayac">Düğün Sayacını Gör</a>
-    </div>
   </header>
 
   <main>
-    <section class="section intro" id="hikaye">
-      <span class="eyebrow">Bizim Hikâyemiz</span>
-      <h2>İki kalp, tek yol</h2>
-      <p class="lead">Hayat bizi aynı anda, aynı yerde buluşturdu. O günden beri her güzel anın içinde ikimiz varız.</p>
-      <div class="timeline">
-<article class="timeline-item"><div class="timeline-icon">👦</div><div><time>09 Temmuz 2001</time><p>Baran’ın hikâyesi başladı.</p></div></article>
-<article class="timeline-item"><div class="timeline-icon">👧</div><div><time>12 Ocak 2003</time><p>Kerime’nin hikâyesi başladı.</p></div></article>
-<article class="timeline-item"><div class="timeline-icon">❤️</div><div><time>12 Mayıs 2024</time><p>İki ayrı yol aynı hikâyede buluştu.</p></div></article>
-<article class="timeline-item"><div class="timeline-icon">💍</div><div><time>31 Mart 2025</time><p>Sonsuzluğa uzanan ilk büyük adım: nişanımız.</p></div></article>
-<article class="timeline-item"><div class="timeline-icon">👰</div><div><time>24 Nisan 2027</time><p>Aynı hayata “evet” diyeceğimiz gün.</p></div></article>
-</div>
-    </section>
-
-    <section class="section countdown-section" id="sayac">
-      <span class="eyebrow">24 Nisan 2027</span>
-      <h2>Düğünümüze kalan süre</h2>
-      <div class="countdown" id="countdown">
-        <div><strong id="days">0</strong><span>Gün</span></div>
-        <div><strong id="hours">0</strong><span>Saat</span></div>
-        <div><strong id="minutes">0</strong><span>Dakika</span></div>
-        <div><strong id="seconds">0</strong><span>Saniye</span></div>
+    <section id="home" class="hero">
+      <img class="hero-bg" src="kapak.jpg" alt="Baran ve Kerime">
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="hero-kicker">12 MAYIS 2024'TEN SONSUZA</p>
+        <h1>Baran <i>♥</i> Kerime</h1>
+        <p class="hero-quote">“Sen benim en güzel tesadüfümsün.”</p>
+        <div class="hero-actions"><a class="btn btn-solid" href="#story">Hikâyemizi Keşfet</a><a class="btn btn-glass" href="#gallery">Fotoğraflarımız</a></div>
+        <div id="hero-countdown" class="hero-countdown" aria-label="Düğün geri sayımı"></div>
       </div>
-      <p class="together" id="together"></p>
+      <a class="scroll-cue" href="#story" aria-label="Aşağı kaydır"><span></span></a>
     </section>
 
-    <section class="section" id="galeri">
-      <span class="eyebrow">Anılarımız</span>
-      <h2>72 Fotoğraf, Tek Hikâye</h2>
-      <div class="gallery">
-<button class="gallery-item" data-index="0" aria-label="Fotoğraf 1"><img src="078a369f-ba70-423e-85d2-a3811245a9c2.JPEG" alt="Baran ve Kerime - Fotoğraf 1" loading="lazy"></button>
-<button class="gallery-item" data-index="1" aria-label="Fotoğraf 2"><img src="205CB7B8-91D8-498B-B180-737CF2FDBF98.JPEG" alt="Baran ve Kerime - Fotoğraf 2" loading="lazy"></button>
-<button class="gallery-item" data-index="2" aria-label="Fotoğraf 3"><img src="2282b4ff-9d69-4fff-8b86-77ca34480a21.JPEG" alt="Baran ve Kerime - Fotoğraf 3" loading="lazy"></button>
-<button class="gallery-item" data-index="3" aria-label="Fotoğraf 4"><img src="60e5f0a4-4eac-4e5c-857f-c5850aaadbbf.JPEG" alt="Baran ve Kerime - Fotoğraf 4" loading="lazy"></button>
-<button class="gallery-item" data-index="4" aria-label="Fotoğraf 5"><img src="6cecd463-8915-474d-8ec1-3f9539dddbcc.JPEG" alt="Baran ve Kerime - Fotoğraf 5" loading="lazy"></button>
-<button class="gallery-item" data-index="5" aria-label="Fotoğraf 6"><img src="8F0B5BBA-B770-4F21-9689-C9C2A0E39066.JPEG" alt="Baran ve Kerime - Fotoğraf 6" loading="lazy"></button>
-<button class="gallery-item" data-index="6" aria-label="Fotoğraf 7"><img src="927F1C53-930E-40DB-82F4-4A14D97E69D2.JPEG" alt="Baran ve Kerime - Fotoğraf 7" loading="lazy"></button>
-<button class="gallery-item" data-index="7" aria-label="Fotoğraf 8"><img src="E674A355-186F-4CE9-B410-9C0DEC385396.JPEG" alt="Baran ve Kerime - Fotoğraf 8" loading="lazy"></button>
-<button class="gallery-item" data-index="8" aria-label="Fotoğraf 9"><img src="IMG_0052.JPEG" alt="Baran ve Kerime - Fotoğraf 9" loading="lazy"></button>
-<button class="gallery-item" data-index="9" aria-label="Fotoğraf 10"><img src="IMG_0078.JPEG" alt="Baran ve Kerime - Fotoğraf 10" loading="lazy"></button>
-<button class="gallery-item" data-index="10" aria-label="Fotoğraf 11"><img src="IMG_0087.JPEG" alt="Baran ve Kerime - Fotoğraf 11" loading="lazy"></button>
-<button class="gallery-item" data-index="11" aria-label="Fotoğraf 12"><img src="IMG_0104.JPEG" alt="Baran ve Kerime - Fotoğraf 12" loading="lazy"></button>
-<button class="gallery-item" data-index="12" aria-label="Fotoğraf 13"><img src="IMG_0150.JPEG" alt="Baran ve Kerime - Fotoğraf 13" loading="lazy"></button>
-<button class="gallery-item" data-index="13" aria-label="Fotoğraf 14"><img src="IMG_0181.JPEG" alt="Baran ve Kerime - Fotoğraf 14" loading="lazy"></button>
-<button class="gallery-item" data-index="14" aria-label="Fotoğraf 15"><img src="IMG_0269.JPEG" alt="Baran ve Kerime - Fotoğraf 15" loading="lazy"></button>
-<button class="gallery-item" data-index="15" aria-label="Fotoğraf 16"><img src="IMG_0321.JPEG" alt="Baran ve Kerime - Fotoğraf 16" loading="lazy"></button>
-<button class="gallery-item" data-index="16" aria-label="Fotoğraf 17"><img src="IMG_0344.JPEG" alt="Baran ve Kerime - Fotoğraf 17" loading="lazy"></button>
-<button class="gallery-item" data-index="17" aria-label="Fotoğraf 18"><img src="IMG_0511.JPEG" alt="Baran ve Kerime - Fotoğraf 18" loading="lazy"></button>
-<button class="gallery-item" data-index="18" aria-label="Fotoğraf 19"><img src="IMG_0734.JPEG" alt="Baran ve Kerime - Fotoğraf 19" loading="lazy"></button>
-<button class="gallery-item" data-index="19" aria-label="Fotoğraf 20"><img src="IMG_0746.JPEG" alt="Baran ve Kerime - Fotoğraf 20" loading="lazy"></button>
-<button class="gallery-item" data-index="20" aria-label="Fotoğraf 21"><img src="IMG_0853.JPEG" alt="Baran ve Kerime - Fotoğraf 21" loading="lazy"></button>
-<button class="gallery-item" data-index="21" aria-label="Fotoğraf 22"><img src="IMG_0888.JPEG" alt="Baran ve Kerime - Fotoğraf 22" loading="lazy"></button>
-<button class="gallery-item" data-index="22" aria-label="Fotoğraf 23"><img src="IMG_1083.JPEG" alt="Baran ve Kerime - Fotoğraf 23" loading="lazy"></button>
-<button class="gallery-item" data-index="23" aria-label="Fotoğraf 24"><img src="IMG_1253.JPEG" alt="Baran ve Kerime - Fotoğraf 24" loading="lazy"></button>
-<button class="gallery-item" data-index="24" aria-label="Fotoğraf 25"><img src="IMG_1400.JPEG" alt="Baran ve Kerime - Fotoğraf 25" loading="lazy"></button>
-<button class="gallery-item" data-index="25" aria-label="Fotoğraf 26"><img src="IMG_1425.JPEG" alt="Baran ve Kerime - Fotoğraf 26" loading="lazy"></button>
-<button class="gallery-item" data-index="26" aria-label="Fotoğraf 27"><img src="IMG_1426.JPEG" alt="Baran ve Kerime - Fotoğraf 27" loading="lazy"></button>
-<button class="gallery-item" data-index="27" aria-label="Fotoğraf 28"><img src="IMG_1440.JPEG" alt="Baran ve Kerime - Fotoğraf 28" loading="lazy"></button>
-<button class="gallery-item" data-index="28" aria-label="Fotoğraf 29"><img src="IMG_1480.JPEG" alt="Baran ve Kerime - Fotoğraf 29" loading="lazy"></button>
-<button class="gallery-item" data-index="29" aria-label="Fotoğraf 30"><img src="IMG_1530.JPEG" alt="Baran ve Kerime - Fotoğraf 30" loading="lazy"></button>
-<button class="gallery-item" data-index="30" aria-label="Fotoğraf 31"><img src="IMG_1533.JPEG" alt="Baran ve Kerime - Fotoğraf 31" loading="lazy"></button>
-<button class="gallery-item" data-index="31" aria-label="Fotoğraf 32"><img src="IMG_1557.JPEG" alt="Baran ve Kerime - Fotoğraf 32" loading="lazy"></button>
-<button class="gallery-item" data-index="32" aria-label="Fotoğraf 33"><img src="IMG_1563.JPEG" alt="Baran ve Kerime - Fotoğraf 33" loading="lazy"></button>
-<button class="gallery-item" data-index="33" aria-label="Fotoğraf 34"><img src="IMG_1590.JPEG" alt="Baran ve Kerime - Fotoğraf 34" loading="lazy"></button>
-<button class="gallery-item" data-index="34" aria-label="Fotoğraf 35"><img src="IMG_1877.JPEG" alt="Baran ve Kerime - Fotoğraf 35" loading="lazy"></button>
-<button class="gallery-item" data-index="35" aria-label="Fotoğraf 36"><img src="IMG_1891.JPEG" alt="Baran ve Kerime - Fotoğraf 36" loading="lazy"></button>
-<button class="gallery-item" data-index="36" aria-label="Fotoğraf 37"><img src="IMG_1997.JPEG" alt="Baran ve Kerime - Fotoğraf 37" loading="lazy"></button>
-<button class="gallery-item" data-index="37" aria-label="Fotoğraf 38"><img src="IMG_2121.JPEG" alt="Baran ve Kerime - Fotoğraf 38" loading="lazy"></button>
-<button class="gallery-item" data-index="38" aria-label="Fotoğraf 39"><img src="IMG_2187.JPEG" alt="Baran ve Kerime - Fotoğraf 39" loading="lazy"></button>
-<button class="gallery-item" data-index="39" aria-label="Fotoğraf 40"><img src="IMG_2221.JPEG" alt="Baran ve Kerime - Fotoğraf 40" loading="lazy"></button>
-<button class="gallery-item" data-index="40" aria-label="Fotoğraf 41"><img src="IMG_2256.JPEG" alt="Baran ve Kerime - Fotoğraf 41" loading="lazy"></button>
-<button class="gallery-item" data-index="41" aria-label="Fotoğraf 42"><img src="IMG_2371.JPEG" alt="Baran ve Kerime - Fotoğraf 42" loading="lazy"></button>
-<button class="gallery-item" data-index="42" aria-label="Fotoğraf 43"><img src="IMG_2376.JPEG" alt="Baran ve Kerime - Fotoğraf 43" loading="lazy"></button>
-<button class="gallery-item" data-index="43" aria-label="Fotoğraf 44"><img src="IMG_2381.JPEG" alt="Baran ve Kerime - Fotoğraf 44" loading="lazy"></button>
-<button class="gallery-item" data-index="44" aria-label="Fotoğraf 45"><img src="IMG_2456.JPEG" alt="Baran ve Kerime - Fotoğraf 45" loading="lazy"></button>
-<button class="gallery-item" data-index="45" aria-label="Fotoğraf 46"><img src="IMG_2482.JPEG" alt="Baran ve Kerime - Fotoğraf 46" loading="lazy"></button>
-<button class="gallery-item" data-index="46" aria-label="Fotoğraf 47"><img src="IMG_2608.JPEG" alt="Baran ve Kerime - Fotoğraf 47" loading="lazy"></button>
-<button class="gallery-item" data-index="47" aria-label="Fotoğraf 48"><img src="IMG_2668.JPEG" alt="Baran ve Kerime - Fotoğraf 48" loading="lazy"></button>
-<button class="gallery-item" data-index="48" aria-label="Fotoğraf 49"><img src="IMG_2836.JPEG" alt="Baran ve Kerime - Fotoğraf 49" loading="lazy"></button>
-<button class="gallery-item" data-index="49" aria-label="Fotoğraf 50"><img src="IMG_2862.JPEG" alt="Baran ve Kerime - Fotoğraf 50" loading="lazy"></button>
-<button class="gallery-item" data-index="50" aria-label="Fotoğraf 51"><img src="IMG_2910.JPEG" alt="Baran ve Kerime - Fotoğraf 51" loading="lazy"></button>
-<button class="gallery-item" data-index="51" aria-label="Fotoğraf 52"><img src="IMG_3076.JPEG" alt="Baran ve Kerime - Fotoğraf 52" loading="lazy"></button>
-<button class="gallery-item" data-index="52" aria-label="Fotoğraf 53"><img src="IMG_3096.JPEG" alt="Baran ve Kerime - Fotoğraf 53" loading="lazy"></button>
-<button class="gallery-item" data-index="53" aria-label="Fotoğraf 54"><img src="IMG_3100.JPEG" alt="Baran ve Kerime - Fotoğraf 54" loading="lazy"></button>
-<button class="gallery-item" data-index="54" aria-label="Fotoğraf 55"><img src="IMG_3210.JPEG" alt="Baran ve Kerime - Fotoğraf 55" loading="lazy"></button>
-<button class="gallery-item" data-index="55" aria-label="Fotoğraf 56"><img src="IMG_3563.JPEG" alt="Baran ve Kerime - Fotoğraf 56" loading="lazy"></button>
-<button class="gallery-item" data-index="56" aria-label="Fotoğraf 57"><img src="IMG_4870.JPG" alt="Baran ve Kerime - Fotoğraf 57" loading="lazy"></button>
-<button class="gallery-item" data-index="57" aria-label="Fotoğraf 58"><img src="IMG_4871.JPG" alt="Baran ve Kerime - Fotoğraf 58" loading="lazy"></button>
-<button class="gallery-item" data-index="58" aria-label="Fotoğraf 59"><img src="IMG_4879.JPG" alt="Baran ve Kerime - Fotoğraf 59" loading="lazy"></button>
-<button class="gallery-item" data-index="59" aria-label="Fotoğraf 60"><img src="IMG_4898.JPEG" alt="Baran ve Kerime - Fotoğraf 60" loading="lazy"></button>
-<button class="gallery-item" data-index="60" aria-label="Fotoğraf 61"><img src="IMG_5759.JPG" alt="Baran ve Kerime - Fotoğraf 61" loading="lazy"></button>
-<button class="gallery-item" data-index="61" aria-label="Fotoğraf 62"><img src="IMG_6344.JPEG" alt="Baran ve Kerime - Fotoğraf 62" loading="lazy"></button>
-<button class="gallery-item" data-index="62" aria-label="Fotoğraf 63"><img src="IMG_6367.JPEG" alt="Baran ve Kerime - Fotoğraf 63" loading="lazy"></button>
-<button class="gallery-item" data-index="63" aria-label="Fotoğraf 64"><img src="IMG_7063.JPEG" alt="Baran ve Kerime - Fotoğraf 64" loading="lazy"></button>
-<button class="gallery-item" data-index="64" aria-label="Fotoğraf 65"><img src="IMG_7216.JPEG" alt="Baran ve Kerime - Fotoğraf 65" loading="lazy"></button>
-<button class="gallery-item" data-index="65" aria-label="Fotoğraf 66"><img src="IMG_9345.JPG" alt="Baran ve Kerime - Fotoğraf 66" loading="lazy"></button>
-<button class="gallery-item" data-index="66" aria-label="Fotoğraf 67"><img src="IMG_9451.JPEG" alt="Baran ve Kerime - Fotoğraf 67" loading="lazy"></button>
-<button class="gallery-item" data-index="67" aria-label="Fotoğraf 68"><img src="IMG_9463.JPEG" alt="Baran ve Kerime - Fotoğraf 68" loading="lazy"></button>
-<button class="gallery-item" data-index="68" aria-label="Fotoğraf 69"><img src="IMG_9541.JPEG" alt="Baran ve Kerime - Fotoğraf 69" loading="lazy"></button>
-<button class="gallery-item" data-index="69" aria-label="Fotoğraf 70"><img src="IMG_9883.JPEG" alt="Baran ve Kerime - Fotoğraf 70" loading="lazy"></button>
-<button class="gallery-item" data-index="70" aria-label="Fotoğraf 71"><img src="IMG_9895.JPEG" alt="Baran ve Kerime - Fotoğraf 71" loading="lazy"></button>
-<button class="gallery-item" data-index="71" aria-label="Fotoğraf 72"><img src="a096a3fa-07fb-4bd2-8150-40685a427c65.JPEG" alt="Baran ve Kerime - Fotoğraf 72" loading="lazy"></button>
-</div>
+    <section id="story" class="section story reveal">
+      <div class="section-title"><small>BİZİM YOLUMUZ</small><h2>Birlikte Yazdığımız Hikâye</h2><p>İki ayrı hayatın tek bir geleceğe dönüştüğü en güzel tarihler.</p></div>
+      <div class="timeline">
+        <article><span>01</span><div class="icon">♥</div><time>12 Mayıs 2024</time><h3>İlk Tanışma</h3><p>Bir “merhaba” ile başlayan ve hayatımızı değiştiren gün.</p></article>
+        <article><span>02</span><div class="icon">◇</div><time>31 Mart 2025</time><h3>Nişanımız</h3><p>Geleceğe birlikte yürüyeceğimize verdiğimiz en güzel söz.</p></article>
+        <article><span>03</span><div class="icon">∞</div><time>24 Nisan 2027</time><h3>Düğünümüz</h3><p>“Biz” olarak başlayacak sonsuz yolculuğumuzun ilk günü.</p></article>
+      </div>
+      <div id="together" class="together" aria-live="polite"></div>
     </section>
 
-    <section class="section letter-section" id="mektup">
-      <span class="eyebrow">Kerime’ye</span>
-      <h2>Sana bir mektubum var</h2>
-      <button class="primary" id="letterButton">Mektubu Aç</button>
-      <article class="letter" id="letter">
-        <p>Hayatımın en güzel tesadüfü,</p>
-        <p>Seninle tanıştığım günden beri geleceğe dair bütün hayallerimin içinde sen varsın. Gülüşün en güzel huzurum, yanımda oluşun en büyük şansım oldu.</p>
-        <p>Birlikte büyümeyi, birlikte gülmeyi ve her yeni güne aynı sevgiyle uyanmayı diliyorum. 24 Nisan 2027 yalnızca bir düğün tarihi değil; ortak hayatımızın en güzel başlangıcı olacak.</p>
-        <p>İyi ki yollarımız kesişti. İyi ki sen.</p>
-        <p class="signature">Seni çok seven Baran ❤️</p>
-      </article>
+    <section id="gallery" class="section gallery-section reveal">
+      <div class="section-title"><small>ANILARIMIZ</small><h2>Her Karede Bir Biz</h2><p><b id="photo-total">0</b> fotoğraf, sayısız güzel an.</p></div>
+      <div id="gallery-grid" class="gallery-grid"></div>
+      <button id="load-more" class="btn btn-dark" type="button">Daha Fazla Göster</button>
     </section>
 
-    <section class="section love-section">
-      <span class="eyebrow">Tek bir cümle</span>
-      <h2>Her şeyden daha gerçek</h2>
-      <button class="love-button" id="loveButton">❤️ Seni Seviyorum</button>
-      <p id="loveMessage">Kerime, seni bugün dünden daha çok seviyorum.</p>
+    <section id="map-section" class="section map-section reveal">
+      <div class="section-title light"><small>ANILARIN İZİNDE</small><h2>Bizim Haritamız</h2><p>Hikâyemizin iz bıraktığı özel yerler.</p></div>
+      <div class="map-layout"><div id="map"><div class="map-loading">Harita yükleniyor…</div></div><div id="place-list" class="place-list"></div></div>
+      <p class="map-note">Konumlar şimdilik örnek olarak Manisa merkezinde. Gerçek adresleri verdiğinde işaretleri tam yerlerine taşırız.</p>
+    </section>
+
+    <section id="letter" class="section letter-section reveal">
+      <div class="letter-photo"><img src="kapak.jpg" alt="Baran ve Kerime anısı"></div>
+      <article class="letter-card"><small>KERİME'YE</small><h2>Biricik Sevgilime</h2><p>Sen hayatıma girdiğin günden beri sıradan günler bile anlam kazandı. Gülüşün evim, elin huzurum oldu. Birlikte yaşadığımız her anı kalbimin en güzel yerinde saklıyorum.</p><p>Yolumuz ne kadar uzun olursa olsun, ben her adımda senin yanında olmak istiyorum. Bugünüm, yarınım ve bütün güzel hayallerim sensin.</p><div class="signature">Seni her geçen gün daha çok seven,<br><b>Baran</b> ♥</div></article>
+    </section>
+
+    <section id="countdown" class="section countdown-section reveal">
+      <small>24 NİSAN 2027</small><h2>Sonsuzluğa Kalan</h2>
+      <div class="countdown-box"><div><strong id="days">0</strong><span>Gün</span></div><div><strong id="hours">0</strong><span>Saat</span></div><div><strong id="minutes">0</strong><span>Dakika</span></div><div><strong id="seconds">0</strong><span>Saniye</span></div></div>
+      <p>Ve sonra… ömür boyu biz.</p>
     </section>
   </main>
 
-  <footer>Baran ❤️ Kerime · Sonsuza kadar</footer>
+  <footer><span>B</span> ♥ <span>K</span><p>Baran & Kerime • Sevgiyle hazırlandı</p></footer>
+  <button id="music-btn" class="music-btn" type="button" aria-label="Müziği aç veya kapat" title="Müziği aç">♫</button>
+  <audio id="music" loop preload="metadata"><source src="ayrilmam.mp3" type="audio/mpeg"></audio>
 
-  <button class="music-button" id="musicButton" aria-label="Müziği aç veya kapat">🎵 Müziği Aç</button>
-  <audio id="music" loop preload="metadata">
-    <source src="ayrilmam.mp3" type="audio/mpeg">
-  </audio>
+  <div id="lightbox" class="lightbox" aria-hidden="true"><button id="close-lightbox" aria-label="Kapat">×</button><button id="prev-photo" class="lightbox-nav prev" aria-label="Önceki">‹</button><img id="lightbox-img" alt="Galeri fotoğrafı"><button id="next-photo" class="lightbox-nav next" aria-label="Sonraki">›</button><span id="photo-count"></span></div>
 
-  <dialog id="lightbox">
-    <button id="closeLightbox" aria-label="Kapat">×</button>
-    <button id="prevPhoto" class="lightbox-nav prev" aria-label="Önceki fotoğraf">‹</button>
-    <img id="lightboxImage" alt="Büyütülmüş fotoğraf">
-    <button id="nextPhoto" class="lightbox-nav next" aria-label="Sonraki fotoğraf">›</button>
-  </dialog>
-
-  <script src="script.js?v=4"></script>
+  <script src="photos.js"></script><script src="locations.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="script.js"></script>
 </body>
 </html>
