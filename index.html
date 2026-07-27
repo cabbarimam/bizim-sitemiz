@@ -50,14 +50,11 @@
 
         .acilis h1 {
             margin: 0 0 15px;
-            h1 {
-    color: #d4af37;
-    font-size: 58px;
-    font-family: "Segoe Script", "Brush Script MT", cursive;
-    letter-spacing: 2px;
-    text-shadow: 0 0 18px rgba(212,175,55,.65);
-}
-            
+            color: #d4af37;
+            font-size: 58px;
+            font-family: "Segoe Script", "Brush Script MT", cursive;
+            letter-spacing: 2px;
+            text-shadow: 0 0 18px rgba(212,175,55,.65);
         }
 
         .acilis p {
@@ -288,7 +285,6 @@
     src="IMG_0052.JPEG"
     alt="Baran ve Kerime"
 >
-        >
 
         <section class="kart">
             <h2>Sonsuza Kadar Birlikte</h2>
@@ -297,11 +293,6 @@
 
     <h1 id="sayac">0 Gün</h1>
 </section>
-<section>
-    <!-- Gün sayacı burada -->
-</section>
-
-<!-- BURAYA YAPIŞTIR -->
 <section class="kart">
     <h2>Sana Bir Mektubum Var 💌</h2>
 
@@ -336,7 +327,7 @@ Seni dün sevdiğimden daha çok, yarın seveceğimden ise biraz daha az seviyor
 İyi ki benim geleceğimsin.
 
 Sonsuza kadar seni sevecek olan,
-❤️
+Baran ❤️
 
         </p>
     </div>
@@ -432,19 +423,20 @@ for (let i = 0; i < 80; i++) {
 let muzikAcik = false;
 
 function muzikDegistir() {
-    const oynatici = document.getElementById("youtubeMuzik");
+    const muzik = document.getElementById("muzik");
     const buton = document.getElementById("muzikButon");
 
-    if (muzikAcik === false) {
-        oynatici.src =
-            "https://www.youtube.com/embed/yprRzmm4aWU?autoplay=1&loop=1&playlist=yprRzmm4aWU";
-
-        buton.textContent = "⏸ Müziği Kapat";
-        muzikAcik = true;
+    if (!muzikAcik) {
+        muzik.play().then(() => {
+            muzikAcik = true;
+            buton.textContent = "⏸ Müziği Kapat";
+        }).catch(() => {
+            buton.textContent = "Tekrar Dokun 🎵";
+        });
     } else {
-        oynatici.src = "";
-        buton.textContent = "🎵 Müziği Aç";
+        muzik.pause();
         muzikAcik = false;
+        buton.textContent = "🎵 Müziği Aç";
     }
 }
 </script>
@@ -452,14 +444,10 @@ function muzikDegistir() {
     🎵 Müziği Aç
 </button>
 
-<iframe
-    id="youtubeMuzik"
-    width="1"
-    height="1"
-    src=""
-    frameborder="0"
-    allow="autoplay; encrypted-media">
-</iframe>
+<audio id="muzik" preload="metadata" loop>
+    <source src="ayrilmam.mp3" type="audio/mpeg">
+    Tarayıcınız ses dosyasını desteklemiyor.
+</audio>
 
 </body>
 </html>
