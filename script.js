@@ -13,7 +13,10 @@ document.getElementById("enterButton").addEventListener("click", async () => {
 
 musicButton.addEventListener("click", async () => {
   if (music.paused) {
-    try { await music.play(); musicButton.textContent = "⏸ Müziği Kapat"; } catch (_) {}
+    try {
+      await music.play();
+      musicButton.textContent = "⏸ Müziği Kapat";
+    } catch (_) {}
   } else {
     music.pause();
     musicButton.textContent = "🎵 Müziği Aç";
@@ -29,8 +32,10 @@ function updateCounters() {
   if (diff <= 0) {
     document.getElementById("countdown").innerHTML = "<h3>Bugün bizim en güzel günümüz! 💍❤️</h3>";
   } else {
-    const days = Math.floor(diff / 86400000); diff %= 86400000;
-    const hours = Math.floor(diff / 3600000); diff %= 3600000;
+    const days = Math.floor(diff / 86400000);
+    diff %= 86400000;
+    const hours = Math.floor(diff / 3600000);
+    diff %= 3600000;
     const minutes = Math.floor(diff / 60000);
     const seconds = Math.floor((diff % 60000) / 1000);
     document.getElementById("days").textContent = days;
@@ -47,7 +52,8 @@ setInterval(updateCounters, 1000);
 document.getElementById("letterButton").addEventListener("click", () => {
   const letter = document.getElementById("letter");
   letter.classList.toggle("open");
-  document.getElementById("letterButton").textContent = letter.classList.contains("open") ? "Mektubu Kapat" : "Mektubu Aç";
+  document.getElementById("letterButton").textContent =
+    letter.classList.contains("open") ? "Mektubu Kapat" : "Mektubu Aç";
 });
 
 document.getElementById("loveButton").addEventListener("click", (event) => {
@@ -92,30 +98,69 @@ setInterval(() => {
 }, 1200);
 
 const photos = [
-  "assets/photos/foto-01.jpeg",
-  "assets/photos/foto-02.jpeg",
-  "assets/photos/foto-03.jpeg",
-  "assets/photos/foto-04.jpeg",
-  "assets/photos/foto-05.jpeg",
-  "assets/photos/foto-06.jpeg",
-  "assets/photos/foto-07.jpeg",
-  "assets/photos/foto-08.jpeg",
-  "assets/photos/foto-09.jpeg",
-  "assets/photos/foto-10.jpeg",
-  "assets/photos/foto-11.jpeg",
-  "assets/photos/foto-12.jpeg",
-  "assets/photos/foto-13.jpeg",
-  "assets/photos/foto-14.jpeg",
-  "assets/photos/foto-15.jpeg",
-  "assets/photos/foto-16.jpeg",
-  "assets/photos/foto-17.jpeg",
-  "assets/photos/foto-18.jpeg",
-  "assets/photos/foto-19.jpeg",
-  "assets/photos/foto-20.jpeg",
-  "assets/photos/foto-21.jpeg",
-  "assets/photos/foto-22.jpeg",
-  "assets/photos/foto-23.jpeg"
+  "IMG_0052.JPEG",
+  "IMG_0078.JPEG",
+  "IMG_0087.JPEG",
+  "IMG_0104.JPEG",
+  "IMG_0150.JPEG",
+  "IMG_0181.JPEG",
+  "IMG_0269.JPEG",
+  "IMG_0321.JPEG",
+  "IMG_0344.JPEG",
+  "IMG_0511.JPEG",
+  "IMG_0734.JPEG",
+  "IMG_0746.JPEG",
+  "IMG_0853.JPEG",
+  "IMG_0888.JPEG",
+  "IMG_1083.JPEG",
+  "IMG_1253.JPEG",
+  "IMG_1400.JPEG",
+  "IMG_1425.JPEG",
+  "IMG_1426.JPEG",
+  "IMG_1440.JPEG",
+  "IMG_1480.JPEG",
+  "IMG_1530.JPEG",
+  "IMG_1533.JPEG",
+  "IMG_1557.JPEG",
+  "IMG_1563.JPEG",
+  "IMG_1590.JPEG",
+  "IMG_1877.JPEG",
+  "IMG_1891.JPEG",
+  "IMG_1997.JPEG",
+  "IMG_2121.JPEG",
+  "IMG_2187.JPEG",
+  "IMG_2221.JPEG",
+  "IMG_2256.JPEG",
+  "IMG_2371.JPEG",
+  "IMG_2376.JPEG",
+  "IMG_2381.JPEG",
+  "IMG_2482.JPEG",
+  "IMG_2608.JPEG",
+  "IMG_2836.JPEG",
+  "IMG_2862.JPEG",
+  "IMG_2910.JPEG",
+  "IMG_3076.JPEG",
+  "IMG_3096.JPEG",
+  "IMG_3100.JPEG",
+  "IMG_3210.JPEG",
+  "IMG_3563.JPEG",
+  "IMG_4870.JPG",
+  "IMG_4871.JPG",
+  "IMG_4879.JPG",
+  "IMG_4898.JPEG",
+  "IMG_5759.JPG",
+  "IMG_6344.JPEG",
+  "IMG_6367.JPEG",
+  "IMG_7063.JPEG",
+  "IMG_7216.JPEG",
+  "IMG_9345.JPG",
+  "IMG_9451.JPEG",
+  "IMG_9463.JPEG",
+  "IMG_9541.JPEG",
+  "IMG_9883.JPEG",
+  "IMG_9895.JPEG"
 ];
+
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 let currentPhoto = 0;
@@ -124,18 +169,22 @@ function showPhoto(index) {
   currentPhoto = (index + photos.length) % photos.length;
   lightboxImage.src = photos[currentPhoto];
 }
+
 document.querySelectorAll(".gallery-item").forEach((item) => {
   item.addEventListener("click", () => {
     showPhoto(Number(item.dataset.index));
     lightbox.showModal();
   });
 });
+
 document.getElementById("closeLightbox").addEventListener("click", () => lightbox.close());
 document.getElementById("prevPhoto").addEventListener("click", () => showPhoto(currentPhoto - 1));
 document.getElementById("nextPhoto").addEventListener("click", () => showPhoto(currentPhoto + 1));
+
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) lightbox.close();
 });
+
 document.addEventListener("keydown", (event) => {
   if (!lightbox.open) return;
   if (event.key === "ArrowLeft") showPhoto(currentPhoto - 1);
