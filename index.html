@@ -429,30 +429,37 @@ function yildizOlustur() {
 for (let i = 0; i < 80; i++) {
     yildizOlustur();
 }
-function muzigiAc() {
+let muzikAcik = false;
 
-    document.getElementById("youtubeMuzik").src =
-    "https://www.youtube.com/embed/yprRzmm4aWU?autoplay=1&loop=1&playlist=yprRzmm4aWU";
+function muzikDegistir() {
+    const oynatici = document.getElementById("youtubeMuzik");
+    const buton = document.getElementById("muzikButon");
 
-    document.getElementById("muzikAlani").style.display = "block";
+    if (muzikAcik === false) {
+        oynatici.src =
+            "https://www.youtube.com/embed/yprRzmm4aWU?autoplay=1&loop=1&playlist=yprRzmm4aWU";
 
-    document.getElementById("muzikButon").innerHTML = "🎵 Müzik Çalıyor";
+        buton.textContent = "⏸ Müziği Kapat";
+        muzikAcik = true;
+    } else {
+        oynatici.src = "";
+        buton.textContent = "🎵 Müziği Aç";
+        muzikAcik = false;
+    }
 }
 </script>
+<button id="muzikButon" onclick="muzikDegistir()">
+    🎵 Müziği Aç
+</button>
 
-<button id="muzikButon" onclick="muzigiAc()">🎵 Müziği Aç</button>
+<iframe
+    id="youtubeMuzik"
+    width="1"
+    height="1"
+    src=""
+    frameborder="0"
+    allow="autoplay; encrypted-media">
+</iframe>
 
-<div id="muzikAlani" style="display:none;">
-    <iframe
-        id="youtubeMuzik"
-        width="0"
-        height="0"
-        src=""
-        title="YouTube player"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen>
-    </iframe>
-</div>
 </body>
 </html>
