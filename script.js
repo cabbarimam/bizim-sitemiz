@@ -98,6 +98,14 @@ setInterval(() => {
 }, 1200);
 
 const photos = [
+  "078a369f-ba70-423e-85d2-a3811245a9c2.JPEG",
+  "205CB7B8-91D8-498B-B180-737CF2FDBF98.JPEG",
+  "2282b4ff-9d69-4fff-8b86-77ca34480a21.JPEG",
+  "60e5f0a4-4eac-4e5c-857f-c5850aaadbbf.JPEG",
+  "6cecd463-8915-474d-8ec1-3f9539dddbcc.JPEG",
+  "8F0B5BBA-B770-4F21-9689-C9C2A0E39066.JPEG",
+  "927F1C53-930E-40DB-82F4-4A14D97E69D2.JPEG",
+  "E674A355-186F-4CE9-B410-9C0DEC385396.JPEG",
   "IMG_0052.JPEG",
   "IMG_0078.JPEG",
   "IMG_0087.JPEG",
@@ -134,8 +142,10 @@ const photos = [
   "IMG_2371.JPEG",
   "IMG_2376.JPEG",
   "IMG_2381.JPEG",
+  "IMG_2456.JPEG",
   "IMG_2482.JPEG",
   "IMG_2608.JPEG",
+  "IMG_2668.JPEG",
   "IMG_2836.JPEG",
   "IMG_2862.JPEG",
   "IMG_2910.JPEG",
@@ -158,7 +168,8 @@ const photos = [
   "IMG_9463.JPEG",
   "IMG_9541.JPEG",
   "IMG_9883.JPEG",
-  "IMG_9895.JPEG"
+  "IMG_9895.JPEG",
+  "a096a3fa-07fb-4bd2-8150-40685a427c65.JPEG"
 ];
 
 const lightbox = document.getElementById("lightbox");
